@@ -68,9 +68,30 @@ select request_month, count(distinct user_id) from access_logs where request_mon
 -- 集計結果をさらに絞り込む having
 select request_month, count(distinct user_id) from access_logs where request_month >= '2017-01-01' and request_month < '2018-01-01' group by request_month having count(distinct user_id) >= 630;
 
--- 
+-- データ並び替え order by
+select * from products order by price desc;
 
--- 
+-- 複数の並び替え条件の指定
+select * from products order by price desc, id;
+
+-- 絶対値 abs
+select abs(10);
+
+-- 四捨五入 round
+select id, name, round(price * 1.08, 0) from products;
+
+-- 文字列の演算  ||  concat
+select concat(last_name, ' ', first_name, 'さん') from users;
+
+-- 日付と時刻演算
+select current_date();
+select current_time();
+select current_date() + interval 3 day;
+select current_time() + interval 6 hour;
+select * from orders where extract(year_month from order_time) = 201701;
+
+-- テーブルの結合
+
 
 -- 
 
