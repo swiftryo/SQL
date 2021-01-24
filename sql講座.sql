@@ -90,10 +90,15 @@ select current_date() + interval 3 day;
 select current_time() + interval 6 hour;
 select * from orders where extract(year_month from order_time) = 201701;
 
--- テーブルの結合
+-- テーブルの結合　内部結合 inner join  (joinに省略可)　省略しない方がよい　
+use mydb;
+select users.id, users.last_name, users.first_name, prefectures.name from users
+inner join prefectures on users.prefecture_id = prefectures.id;
 
-
--- 
+-- 内部結合+絞り込み
+select u.id, u.last_name, u.first_name, p.name from users as u
+inner join prefectures as p on u.prefecture_id = p.id
+where u.gender = 2;
 
 -- 
 
