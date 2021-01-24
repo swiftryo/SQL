@@ -95,10 +95,56 @@ use mydb;
 select users.id, users.last_name, users.first_name, prefectures.name from users
 inner join prefectures on users.prefecture_id = prefectures.id;
 
--- 内部結合+絞り込み
+-- 内部結合+絞り込み　お互いに一致している行が結合テーブルの対象
 select u.id, u.last_name, u.first_name, p.name from users as u
 inner join prefectures as p on u.prefecture_id = p.id
 where u.gender = 2;
+
+-- 外部結合　outer join
+select 
+	p.id,
+    p.name,
+    sum(od.product_qty) num
+from
+	products p
+-- left outer join
+inner join
+	order_details od
+on 
+	p.id = od.product_id
+group by p.id
+;
+
+-- 3つ以上の結合 joinは複数回使える
+select u.last_name, u.first_name, o.id, o.user_id, o.amount, o.order_time, p.name, od.product_qty, p.price 
+from orders o
+inner join order_details od
+on o.id = od.order_id
+inner join products p
+on od.product_id = p.id
+inner join users u
+on o.user_id = u.id;
+;
+
+-- 多対多の関係を含む結合
+select *
+from products p
+inner join products_categories pc
+on p.id = pc.product_id
+inner join categories c
+on pc.category_id = c.id
+where p.id = 3;
+
+-- テーブルの足し算　union　集合演算子
+select email, last_name, first_name, gender
+from users
+union
+select email, last_name, first_name, gender from admin_users;
+
+
+-- 
+
+-- 
 
 -- 
 
