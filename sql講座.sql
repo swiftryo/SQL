@@ -141,11 +141,44 @@ from users
 union
 select email, last_name, first_name, gender from admin_users;
 
+-- ビュー　並び替えができない　create view ビュー名 　削除 drop view
+create view prefecture_user_counts(name, count)
+as
+select p.name name, count(*) count
+from users u
+inner join prefectures p
+on u.prefecture_id = p.id
+group by u.prefecture_id
+;
+
+-- サブクエリ 
+select id, last_name, email
+from users
+where id not in (
+
+select user_id
+from orders
+where order_time >= '2017-12-01 00:00:00'
+and order_time < '2017-12-30 00:00:00')
+;
+
+-- スカラサブクエリ
+select *
+from products
+where price > (
+	select avg(price)
+	from products
+)
+order by price desc, id asc
+;
+
+-- 条件分岐 case
+
 
 -- 
-
 -- 
-
+-- 
+-- 
 -- 
 
 
